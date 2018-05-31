@@ -1,0 +1,15 @@
+{
+    "server": {
+        "host": "0.0.0.0",
+        "port": 3300
+    },
+    "mysql": {
+        "host"      : "localhost",
+        "port"      : 3306,
+        "database"  : "blog",
+        "user"       : "khanhjm",
+        "password"  : "123456"
+    },
+    "salt": 20,
+    "secret_key": "secretkey"
+}

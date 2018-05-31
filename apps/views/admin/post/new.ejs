@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Add post</title>
+    <%- include ../layout/head %>
+    <script src="/static/plugins/tinymce/tinymce.js"></script>
+    <script>
+        tinymce.init({
+            selector: "textarea",
+            height: 250,
+            plugins: [
+                "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak",
+                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                "table contextmenu directionality emoticons template textcolor paste fullpage textcolor colorpicker textpattern"
+            ],
+
+            toolbar1: "newdocument fullpage | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
+            toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code | insertdatetime preview | forecolor backcolor",
+            toolbar3: "table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | visualchars visualblocks nonbreaking template pagebreak restoredraft",
+            content_css: [
+                '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+                '//www.tinymce.com/css/codepen.min.css'],
+
+            menubar: false,
+            toolbar_items_size: 'small',
+
+            style_formats: [{
+                title: 'Bold text',
+                inline: 'b'
+            }, {
+                title: 'Red text',
+                inline: 'span',
+                styles: {
+                color: '#ff0000'
+                }
+            }, {
+                title: 'Red header',
+                block: 'h1',
+                styles: {
+                color: '#ff0000'
+                }
+            }, {
+                title: 'Example 1',
+                inline: 'span',
+                classes: 'example1'
+            }, {
+                title: 'Example 2',
+                inline: 'span',
+                classes: 'example2'
+            }, {
+                title: 'Table styles'
+            }, {
+                title: 'Table row 1',
+                selector: 'tr',
+                classes: 'tablerow1'
+            }],
+
+            templates: [{
+                title: 'Test template 1',
+                content: 'Test 1'
+            }, {
+                title: 'Test template 2',
+                content: 'Test 2'
+            }],
+            
+            init_instance_callback: function () {
+                window.setTimeout(function() {
+                $("#div").show();
+                }, 1000);
+            }
+        });
+    </script>
+</head>
+<body>
+<%- include ../layout/nav %>
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Add new Post
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-10">
+                    <form role="form" id="addpost" method="POST" action="/admin/post/new" >
+                        
+                        <% if (data && data.error) { %>
+                        <div id="addpost-alert" class="alert alert-danger col-sm-12">
+                            <%= data.error %>
+                        </div>
+                        <% } %>
+
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input class="form-control" name="title" placeholder="Title">
+                        </div>
+                        <div class="form-group">
+                            <label>Content</label>
+                            <textarea class="form-control" name="content" placeholder="Content"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Author</label>
+                            <input class="form-control" name="author" placeholder="Author">
+                        </div>
+                        <input type="submit" class="btn btn-success" name="submit" value="Add">
+                    </form>
+                </div>
+                <!-- /.col-lg-6 (nested) -->
+            </div>
+            <!-- /.row (nested) -->
+        </div>
+        <!-- /.panel-body -->
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>All post</title>
+    <%- include ../layout/head %>
+</head>
+<body>
+<div id="wrapper">
+    <%- include ../layout/nav %>
+    <div class="container-fluid">
+        <div class="row" style="margin-bottom: 10px;">
+            <div class="col-md-12">
+                <a href="/admin/post/new" class="btn btn-success pull-right"> Add new post </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Posts
+                    </div>
+                    <div class="panel-body">
+                        <table id="getAllPost" width="100%" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Title</th>
+                                    <th>Content</th>
+                                    <th>Author</th>
+                                    <th>Create Time</th>
+                                    <th>Update Time</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <% if (data && data.posts) { %>
+                                <% for(var i = 0; i < data.posts.length; i++) { %>
+                                <tr>
+                                    <td><%= data.posts[i].id %></td>
+                                    <td><%= data.posts[i].title %></td>
+                                    <td><%= data.posts[i].content %></td>
+                                    <td><%= data.posts[i].author %></td>
+                                    <td><%= moment(data.posts[i].created_at).format("DD-MM-YYYY") %></td>
+                                    <td><%= moment(data.posts[i].updated_at).fromNow() %></td>
+                                    <td>
+                                        <a href="/admin/post/edit/<%= data.posts[i].id %>" class="btn btn-primary"> Edit </a>
+                                        <button href="/admin/post/delete" post_id="<%= data.posts[i].id %>" class="btn btn-danger post_delete"> Delete </button>
+                                    </td>
+                                </tr>
+                                <% } %>
+                            <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/static/js/post.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#getAllPost').DataTable({
+            responsive: true
+        });
+    });
+</script>
+</body>
+</html>
