@@ -4,6 +4,7 @@
   "description": "khanhjm's blog",
   "main": "index.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -31,14 +32,10 @@
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/khanhjm/myblog.git"
+    "url": "git+https://github.com/khanhjm/blog.git"
   },
-  "bugs": {
-    "url": "https://github.com/khanhjm/myblog/issues"
-  },
-  "homepage": "https://github.com/khanhjm/myblog#readme"
-},
-"engines": {
-"node": "0.8.x",
-"npm": "1.2.x"
+  "engines": {
+    "node": "8.10.0",
+    "npm": "5.6.0"
+  }
 }

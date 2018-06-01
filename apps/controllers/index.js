@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-
+var post_md = require("../models/post");
 router.use("/admin", require(__dirname + "/admin"));
 router.use("/blog", require(__dirname + "/blog"));
 
