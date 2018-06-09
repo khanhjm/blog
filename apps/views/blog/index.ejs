@@ -42,12 +42,12 @@
                 <% } else if (data && data.posts) { %>
                     <% for(var i=0; i< data.posts.length; i++) { %>
                         <div class="post-preview">
-                            <a href="post.html">
+                            <a href="/blog/post/<%= data.posts[i].id %>">
                                 <h2 class="post-title">
                                     <%= data.posts[i].title %>
                                 </h2>
                                 <h3 class="post-subtitle">
-                                <%- data.posts[i].content %>
+                                    <%- data.posts[i].description %>
                                 </h3>
                             </a>
                             <p class="post-meta">Posted by

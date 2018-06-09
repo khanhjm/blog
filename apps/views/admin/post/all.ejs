@@ -28,7 +28,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Title</th>
-                                    <th>Content</th>
+                                    <th>Description</th>
                                     <th>Author</th>
                                     <th>Create Time</th>
                                     <th>Update Time</th>
@@ -41,7 +41,7 @@
                                 <tr>
                                     <td><%= data.posts[i].id %></td>
                                     <td><%= data.posts[i].title %></td>
-                                    <td><%= data.posts[i].content %></td>
+                                    <td><%= data.posts[i].description %></td>
                                     <td><%= data.posts[i].author %></td>
                                     <td><%= moment(data.posts[i].created_at).format("DD-MM-YYYY") %></td>
                                     <td><%= moment(data.posts[i].updated_at).fromNow() %></td>

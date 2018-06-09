@@ -21,8 +21,9 @@ function addPost(post) {
         console.log(".. addPost");
         post = {
             title: post.title,
-            author: post.author,
+            description: post.description,
             content: post.content,
+            author: post.author,
             created_at: new Date(),
             updated_at: new Date()
         };
@@ -56,8 +57,8 @@ function updatePost(post) {
     if (post) {
         var defer = q.defer();
         console.log(".. updatePost " + post.id);
-        var query = conn.query('UPDATE posts SET title = ?, content = ?, author = ?, updated_at = ? WHERE id = ?',
-            [post.title, post.content, post.author, new Date(), post.id],
+        var query = conn.query('UPDATE posts SET title = ?, description = ?, content = ?, author = ?, updated_at = ? WHERE id = ?',
+            [post.title, post.description, post.content, post.author, new Date(), post.id],
             function (err, result) {
                 if (err) {
                     defer.reject(err);

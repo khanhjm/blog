@@ -8,13 +8,37 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Clean Blog - Start Bootstrap Theme</title>
+    <title>About me</title>
 
     <%- include layout/head %>
+<style>
+#myBtnTop {
+  display: none;
+  position: fixed;
+  bottom: 15px;
+  right: 30px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 50%;
+}
+
+#myBtnTop:hover {
+  background-color: #555;
+}
+</style>
   </head>
 
   <body>
-
+    
+  <button onclick="topFunction()" id="myBtnTop" title="Go to top">
+    <i class="fa fa-arrow-up"></i>
+  </button>
     <!-- Navigation -->
     <%- include layout/nav %>
 
@@ -25,8 +49,8 @@
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="page-heading">
-              <h1>About Me</h1>
-              <span class="subheading">Smile and the world smiles with you. Cry and you will cry alone.</span>
+            <h1><small>Hi, I'm <b>Wolf</b></small></h1>
+            <span class="subheading">Smile and the world smiles with you. Cry and you will cry alone.</span>
             </div>
           </div>
         </div>
@@ -36,10 +60,88 @@
     <!-- Main Content -->
     <div class="container">
       <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe nostrum ullam eveniet pariatur voluptates odit, fuga atque ea nobis sit soluta odio, adipisci quas excepturi maxime quae totam ducimus consectetur?</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius praesentium recusandae illo eaque architecto error, repellendus iusto reprehenderit, doloribus, minus sunt. Numquam at quae voluptatum in officia voluptas voluptatibus, minus!</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut consequuntur magnam, excepturi aliquid ex itaque esse est vero natus quae optio aperiam soluta voluptatibus corporis atque iste neque sit tempora!</p>
+        <div class="col-md-11 mx-auto">
+          <div class="row">
+            <div class="mx-auto pull-right" >
+              <img class="rounded-circle my-3" src="/static/theme/img/avatar.jpg" width="250" height="250" alt="Dương Đắc Khanh">
+              <ul class="list-inline text-center">
+                <li class="list-inline-item">
+                  <a href="https://twitter.com/khanhjm" target="_blank" title="Twitter">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="https://www.facebook.com/khanhjm" target="_blank" title="Facebook">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="https://github.com/khanhjm" target="_blank" title="Github">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="mx-auto">
+              <div class="post-preview">
+                <a href="#">
+                  <h2 class="post-title">
+                  DƯƠNG ĐẮC KHANH
+                  </h2>
+                  <h3 class="post-subtitle">
+                  Web Developer
+                  </h3>
+                </a>
+                <p class="post-meta">
+                  <table>
+                    <tr>
+                      <td>Birthday</td>
+                      <td>&nbsp;:&nbsp;</td>
+                      <td> 28-05-1997</td>
+                    </tr>
+                    <tr>
+                      <td>Sex</td>
+                      <td>&nbsp;:&nbsp;</td>
+                      <td>Male</td>
+                    </tr>
+                    <tr>
+                      <td>Telephone</td>
+                      <td>&nbsp;:&nbsp;</td>
+                      <td>0975.460.697</td>
+                    </tr>
+                    <tr>
+                      <td>Email</td>
+                      <td>&nbsp;:&nbsp;</td>
+                      <td>khanhjk@gmail.com</td>
+                    </tr>
+                    <tr>
+                      <td>Address</td>
+                      <td>&nbsp;:&nbsp;</td>
+                      <td>Hanoi City</td>
+                    </tr>
+                  </table>
+                </p>
+              </div>
+            </div>
+          </div>
+          <p class="text-justify">
+            &nbsp;<3 Tình yêu của sao Song Tử như cây cung bắn đi những mũi tên không bao giờ trở lại.<br>
+            &nbsp;<3 Những mũi tên đó cắm vào đâu, sẽ nằm mãi ở đó chứ không được quay lại.<br>
+            &nbsp;<3 Họ đã yêu ai, thì dù có ra sao đi nữa, suốt đời người đó vẫn có một vị trí nhất định trong tim Song Tử.<br>
+            &nbsp;<3 Kết thúc trong tình yêu của sao Song Tử là một kết thúc mở, nhưng chỉ đúng nếu Song Tử là người chia tay.<br>
+            &nbsp;<3 Chính Song Tử chia tay thì chính Song Tử sẽ tìm đường trở về bên người họ yêu.<br>
+            &nbsp;<3 Bởi vì họ liên tục tìm những câu trả lời để khẳng định cho niềm tin tình yêu của mình.<br>
+            &nbsp;<3 Họ sẽ trở nên rất rắc rối nếu họ vẫn còn thắc mắc, và sẽ yêu cuồng nhiệt, chung thủy nếu niềm tin của họ được bảo vệ vững vàng.<br>
+          </p>
         </div>
       </div>
     </div>
@@ -51,7 +153,25 @@
 
     <!-- Script -->
     <%- include layout/script %>
+    
+    <script>
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function() {scrollFunction()};
 
+    function scrollFunction() {
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        document.getElementById("myBtnTop").style.display = "block";
+      } else {
+        document.getElementById("myBtnTop").style.display = "none";
+      }
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+      var body = $("html, body");
+      body.stop().animate({scrollTop:0}, 500, 'swing', function() {});
+    }
+    </script>
   </body>
 
 </html>
