@@ -4,7 +4,7 @@ var router = express.Router();
 var post_md = require("../models/post");
 
 router.get("/", function(req, res) {
-    var data = post_md.getAllPosts();
+    var data = post_md.getAllPostsNotHide();
     data.then(function(posts) {
         var result = {
             posts: posts,

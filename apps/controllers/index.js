@@ -5,7 +5,7 @@ router.use("/admin", require(__dirname + "/admin"));
 router.use("/blog", require(__dirname + "/blog"));
 
 router.get("/", function(req, res){
-    var data = post_md.getAllPosts();
+    var data = post_md.getAllPostsNotHide();
     data.then(function(posts) {
         var result = {
             posts: posts,
@@ -28,4 +28,9 @@ router.get("/contact", function(req, res){
 router.get("/khanhjm", function(req, res){
     res.render("blog/about");
 });
+
+router.get("/chat", function(req, res) {
+    res.render("chat");
+})
+
 module.exports = router;

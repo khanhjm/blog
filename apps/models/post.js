@@ -15,6 +15,19 @@ function getAllPosts() {
     return defer.promise;
 };
 
+function getAllPostsNotHide() {
+    var defer = q.defer();
+    console.log(".. getAllPosts");
+    var query = conn.query('SELECT * FROM posts where hide = 0', function (err, result) {
+        if (err) {
+            defer.reject(err);
+        } else {
+            defer.resolve(result);
+        }
+    });
+    return defer.promise;
+};
+
 function addPost(post) {
     if (post) {
         var defer = q.defer();
@@ -89,6 +102,7 @@ function deletePost(id) {
 
 module.exports = {
     getAllPosts: getAllPosts,
+    getAllPostsNotHide,
     addPost: addPost,
     getPostById: getPostById,
     updatePost: updatePost,
