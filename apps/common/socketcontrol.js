@@ -51,7 +51,7 @@ module.exports = function(io) {
             // Notify to other user
             var data = {
                 sender: "SERVER",
-                message: "<p style='color: red;'" + socket.username + " has left</p>"
+                message: "<span style='color: red;'>" + socket.username + " has left</span>"
             };
             socket.broadcast.emit("update_message", data);
         })
