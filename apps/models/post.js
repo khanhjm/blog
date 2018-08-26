@@ -18,7 +18,7 @@ function getAllPosts() {
 function getAllPostsNotHide() {
     var defer = q.defer();
     console.log(".. getAllPosts");
-    var query = conn.query('SELECT * FROM posts where hide = 0', function (err, result) {
+    var query = conn.query('SELECT * FROM posts where hide = 0 ORDER BY updated_at DESC', function (err, result) {
         if (err) {
             defer.reject(err);
         } else {
