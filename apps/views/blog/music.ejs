@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Love</title>
+	<style type="text/css" media="all">
+		#info {
+			background: #333;
+			opacity: 0.8;
+			position: absolute;
+			top: 5px;
+			right: 5px;
+			width: 280px;
+			color: #fff;
+			border-radius: 5px;
+			z-index: 10
+		}
+
+		#info p {
+			padding: 0 10px;
+		}
+
+		#info a {
+			color: #f2ea0a;
+		}
+
+		body {
+			background: #000;
+			margin: 0;
+		}
+
+		canvas {
+			cursor: crosshair;
+			display: block;
+		}
+	</style>
+</head>
+
+<body>
+	<p><iframe src="https://www.nhaccuatui.com/mh/background/CjkiE3WLSa6k" width="1" height="1" frameborder="0"
+		 allowfullscreen allow="autoplay"></iframe></p>
+	<canvas id="canvas">Canvas is not supported in your browser.</canvas>
+	<script language="javascript" type="text/javascript">
+		window.requestAnimFrame = (function () { return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function (callback) { window.setTimeout(callback, 1000 / 60); }; })();
+		var canvas = document.getElementById('canvas'), ctx = canvas.getContext('2d'), cw = window.innerWidth, ch = window.innerHeight, fireworks = [], particles = [], hue = 120, limiterTotal = 5, limiterTick = 0, timerTotal = 80, timerTick = 0, mousedown = false, mx, my;
+		var ihaox = cw / 2 - 10, ihaoy = ch / 2, ihao = 0, ihaox2 = cw / 2 + 10, ihaoy2 = ch / 2 - 180;
+		canvas.width = cw; canvas.height = ch - 100;
+		function random(min, max) { return Math.random() * (max - min) + min; }
+		function calculateDistance(p1x, p1y, p2x, p2y) {
+			var xDistance = p1x - p2x, yDistance = p1y - p2y;
+			return Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
+		}
+		function Firework(sx, sy, tx, ty) {
+		this.x = sx;
+			this.y = sy; this.sx = sx; this.sy = sy; this.tx = tx; this.ty = ty; this.distanceToTarget = calculateDistance(sx, sy, tx, ty); this.distanceTraveled = 0; this.coordinates = []; this.coordinateCount = 3;
+			while (this.coordinateCount--) { this.coordinates.push([this.x, this.y]); }
+			this.angle = Math.atan2(ty - sy, tx - sx); this.speed = 1; this.acceleration = 1.05; this.brightness = random(50, 70); this.targetRadius = 1;
+		}
+		Firework.prototype.update = function (index) {
+			this.coordinates.pop(); this.coordinates.unshift([this.x, this.y]);
+			if (this.targetRadius < 8) { this.targetRadius += 0.3; }
+			else { this.targetRadius = 1; }
+			this.speed *= this.acceleration;
+			var vx = Math.cos(this.angle) * this.speed, vy = Math.sin(this.angle) * this.speed;
+			this.distanceTraveled = calculateDistance(this.sx, this.sy, this.x + vx, this.y + vy);
+			if (this.distanceTraveled >= this.distanceToTarget) { createParticles(this.tx, this.ty); fireworks.splice(index, 1); }
+			else { this.x += vx; this.y += vy; }
+		}
+		Firework.prototype.draw = function () {
+			ctx.beginPath(); ctx.moveTo(this.coordinates[this.coordinates.length - 1][0], this.coordinates[this.coordinates.length - 1][1]); ctx.lineTo(this.x, this.y); ctx.strokeStyle = 'hsl(' + hue + ', 100%, ' + this.brightness + '%)'; ctx.stroke();
+			ctx.beginPath(); ctx.arc(this.tx, this.ty, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+			if (ihao >= 25) {
+				ctx.beginPath(); ctx.arc(cw / 2 - 370, ch / 2 - 180, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 - 350, ch / 2 - 180, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 - 330, ch / 2 - 180, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 - 310, ch / 2 - 180, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 - 290, ch / 2 - 180, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 - 330, ch / 2 - 160, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 - 330, ch / 2 - 140, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 - 330, ch / 2 - 120, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 - 330, ch / 2 - 100, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 - 330, ch / 2 - 80, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 - 330, ch / 2 - 60, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 - 370, ch / 2 - 40, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 - 350, ch / 2 - 40, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 - 330, ch / 2 - 40, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 - 310, ch / 2 - 40, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 - 290, ch / 2 - 40, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 + 290, ch / 2 - 180, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 + 290, ch / 2 - 160, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 + 290, ch / 2 - 140, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 + 290, ch / 2 - 120, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 + 290, ch / 2 - 100, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 + 290, ch / 2 - 80, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 + 290, ch / 2 - 60, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 + 290, ch / 2 - 40, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 + 370, ch / 2 - 180, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 + 370, ch / 2 - 160, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 + 370, ch / 2 - 140, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 + 370, ch / 2 - 120, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 + 370, ch / 2 - 100, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 + 370, ch / 2 - 80, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 + 370, ch / 2 - 60, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 + 370, ch / 2 - 40, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 + 310, ch / 2 - 40, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 + 330, ch / 2 - 40, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ctx.beginPath(); ctx.arc(cw / 2 + 350, ch / 2 - 40, this.targetRadius, 0, Math.PI * 2); ctx.stroke();
+				ihao = 0;
+			}
+			ihao++;
+		}
+		function Particle(x, y) {
+			this.x = x; this.y = y; this.coordinates = []; this.coordinateCount = 5;
+			while (this.coordinateCount--) { this.coordinates.push([this.x, this.y]); }
+			this.angle = random(0, Math.PI * 2); this.speed = random(1, 10); this.friction = 0.95; this.gravity = 1; this.hue = random(hue - 20, hue + 20); this.brightness = random(50, 80); this.alpha = 1; this.decay = random(0.015, 0.03);
+		}
+		Particle.prototype.update = function (index) {
+			this.coordinates.pop(); this.coordinates.unshift([this.x, this.y]); this.speed *= this.friction; this.x += Math.cos(this.angle) * this.speed; this.y += Math.sin(this.angle) * this.speed + this.gravity; this.alpha -= this.decay;
+			if (this.alpha <= this.decay) { particles.splice(index, 1); }
+		}
+		Particle.prototype.draw = function () {
+			ctx.beginPath(); ctx.moveTo(this.coordinates[this.coordinates.length - 1][0], this.coordinates[this.coordinates.length - 1][1]); ctx.lineTo(this.x, this.y); ctx.strokeStyle = 'hsla(' + this.hue + ', 100%, ' + this.brightness + '%, ' + this.alpha + ')'; ctx.stroke();
+		}
+		function createParticles(x, y) {
+			var particleCount = 10;
+			while (particleCount--) { particles.push(new Particle(x, y)); }
+		}
+		function loop() {
+			requestAnimFrame(loop); hue += 0.5; ctx.globalCompositeOperation = 'destination-out'; ctx.fillStyle = 'rgba(0, 0, 0, 0.5)'; ctx.fillRect(0, 0, cw, ch); ctx.globalCompositeOperation = 'lighter';
+			var i = fireworks.length;
+			while (i--) { fireworks[i].draw(); fireworks[i].update(i); }
+			var i = particles.length;
+			while (i--) { particles[i].draw(); particles[i].update(i); }
+			drawHeart();
+			if (limiterTick >= limiterTotal) {
+				if (mousedown) { fireworks.push(new Firework(cw / 2, ch, mx, my)); limiterTick = 0; }
+			} else { limiterTick++; }
+		}
+		canvas.addEventListener('mousemove', function (e) { mx = e.pageX - canvas.offsetLeft; my = e.pageY - canvas.offsetTop; });
+		canvas.addEventListener('mousedown', function (e) { e.preventDefault(); mousedown = true; });
+		canvas.addEventListener('mouseup', function (e) { e.preventDefault(); mousedown = false; });
+		function drawHeart() {
+			if (timerTick >= timerTotal) {
+				if (!mousedown) {
+					if ((ihaox == (cw / 2 - 10) && ihaoy == (ch / 2)) || (ihaox == (cw / 2 - 30) && ihaoy == (ch / 2 - 20)) || (ihaox == (cw / 2 - 50) && ihaoy == (ch / 2 - 40)) || (ihaox == (cw / 2 - 70) && ihaoy == (ch / 2 - 60)) || (ihaox == (cw / 2 - 90) && ihaoy == (ch / 2 - 80)) || (ihaox == (cw / 2 - 110) && ihaoy == (ch / 2 - 100))) { ihaox -= 20; ihaoy -= 20; }
+					else if ((ihaox == (cw / 2 - 130) && ihaoy == (ch / 2 - 120)) || (ihaox == (cw / 2 - 130) && ihaoy == (ch / 2 - 140)) || (ihaox == (cw / 2 - 130) && ihaoy == (ch / 2 - 160))) { ihaoy -= 20; }
+					else if ((ihaox == (cw / 2 - 130) && ihaoy == (ch / 2 - 180)) || (ihaox == (cw / 2 - 110) && ihaoy == (ch / 2 - 200)) || (ihaox == (cw / 2 + 10) && ihaoy == (ch / 2 - 180)) || (ihaox == (cw / 2 + 30) && ihaoy == (ch / 2 - 200))) { ihaoy -= 20; ihaox += 20; }
+					else if ((ihaox == (cw / 2 - 90) && ihaoy == (ch / 2 - 220)) || (ihaox == (cw / 2 - 70) && ihaoy == (ch / 2 - 220)) || (ihaox == (cw / 2 - 10) && ihaoy == (ch / 2 - 180)) || (ihaox == (cw / 2 + 50) && ihaoy == (ch / 2 - 220)) || (ihaox == (cw / 2 + 70) && ihaoy == (ch / 2 - 220))) { ihaox += 20; }
+					else if ((ihaox == (cw / 2 - 50) && ihaoy == (ch / 2 - 220)) || (ihaox == (cw / 2 - 30) && ihaoy == (ch / 2 - 200)) || (ihaox == (cw / 2 + 90) && ihaoy == (ch / 2 - 220)) || (ihaox == (cw / 2 + 110) && ihaoy == (ch / 2 - 200))) { ihaox += 20; ihaoy += 20; }
+					else if ((ihaox == (cw / 2 + 130) && ihaoy == (ch / 2 - 180)) || (ihaox == (cw / 2 + 130) && ihaoy == (ch / 2 - 160)) || (ihaox == (cw / 2 + 130) && ihaoy == (ch / 2 - 140))) { ihaoy += 20; }
+					else if ((ihaox == (cw / 2 + 130) && ihaoy == (ch / 2 - 120)) || (ihaox == (cw / 2 + 110) && ihaoy == (ch / 2 - 100)) || (ihaox == (cw / 2 + 90) && ihaoy == (ch / 2 - 80)) || (ihaox == (cw / 2 + 70) && ihaoy == (ch / 2 - 60)) || (ihaox == (cw / 2 + 50) && ihaoy == (ch / 2 - 40)) || (ihaox == (cw / 2 + 30) && ihaoy == (ch / 2 - 20))) { ihaox -= 20; ihaoy += 20; }
+					else { ihaox -= 20; }
+					fireworks.push(new Firework(cw / 2, ch / 2 - 100, ihaox, ihaoy));
+					if (ihao % 5 == 0) {
+						fireworks.push(new Firework(cw / 2 - 370, ch / 2 - 180, cw / 2 - 370, ch / 2 - 180));
+						fireworks.push(new Firework(cw / 2 - 370, ch / 2 - 40, cw / 2 - 370, ch / 2 - 40));
+						fireworks.push(new Firework(cw / 2 + 370, ch / 2 - 180, cw / 2 + 370, ch / 2 - 180));
+						fireworks.push(new Firework(cw / 2 + 370, ch / 2 - 40, cw / 2 + 370, ch / 2 - 40));
+					}
+					if ((ihaox2 == (cw / 2 - 10) && ihaoy2 == (ch / 2)) || (ihaox2 == (cw / 2 - 30) && ihaoy2 == (ch / 2 - 20)) || (ihaox2 == (cw / 2 - 50) && ihaoy2 == (ch / 2 - 40)) || (ihaox2 == (cw / 2 - 70) && ihaoy2 == (ch / 2 - 60)) || (ihaox2 == (cw / 2 - 90) && ihaoy2 == (ch / 2 - 80)) || (ihaox2 == (cw / 2 - 110) && ihaoy2 == (ch / 2 - 100))) { ihaox2 -= 20; ihaoy2 -= 20; }
+					else if ((ihaox2 == (cw / 2 - 130) && ihaoy2 == (ch / 2 - 120)) || (ihaox2 == (cw / 2 - 130) && ihaoy2 == (ch / 2 - 140)) || (ihaox2 == (cw / 2 - 130) && ihaoy2 == (ch / 2 - 160))) { ihaoy2 -= 20; }
+					else if ((ihaox2 == (cw / 2 - 130) && ihaoy2 == (ch / 2 - 180)) || (ihaox2 == (cw / 2 - 110) && ihaoy2 == (ch / 2 - 200)) || (ihaox2 == (cw / 2 + 10) && ihaoy2 == (ch / 2 - 180)) || (ihaox2 == (cw / 2 + 30) && ihaoy2 == (ch / 2 - 200))) { ihaoy2 -= 20; ihaox2 += 20; }
+					else if ((ihaox2 == (cw / 2 - 90) && ihaoy2 == (ch / 2 - 220)) || (ihaox2 == (cw / 2 - 70) && ihaoy2 == (ch / 2 - 220)) || (ihaox2 == (cw / 2 - 10) && ihaoy2 == (ch / 2 - 180)) || (ihaox2 == (cw / 2 + 50) && ihaoy2 == (ch / 2 - 220)) || (ihaox2 == (cw / 2 + 70) && ihaoy2 == (ch / 2 - 220))) { ihaox2 += 20; }
+					else if ((ihaox2 == (cw / 2 - 50) && ihaoy2 == (ch / 2 - 220)) || (ihaox2 == (cw / 2 - 30) && ihaoy2 == (ch / 2 - 200)) || (ihaox2 == (cw / 2 + 90) && ihaoy2 == (ch / 2 - 220)) || (ihaox2 == (cw / 2 + 110) && ihaoy2 == (ch / 2 - 200))) { ihaox2 += 20; ihaoy2 += 20; }
+					else if ((ihaox2 == (cw / 2 + 130) && ihaoy2 == (ch / 2 - 180)) || (ihaox2 == (cw / 2 + 130) && ihaoy2 == (ch / 2 - 160)) || (ihaox2 == (cw / 2 + 130) && ihaoy2 == (ch / 2 - 140))) { ihaoy2 += 20; }
+					else if ((ihaox2 == (cw / 2 + 130) && ihaoy2 == (ch / 2 - 120)) || (ihaox2 == (cw / 2 + 110) && ihaoy2 == (ch / 2 - 100)) || (ihaox2 == (cw / 2 + 90) && ihaoy2 == (ch / 2 - 80)) || (ihaox2 == (cw / 2 + 70) && ihaoy2 == (ch / 2 - 60)) || (ihaox2 == (cw / 2 + 50) && ihaoy2 == (ch / 2 - 40)) || (ihaox2 == (cw / 2 + 30) && ihaoy2 == (ch / 2 - 20))) { ihaox2 -= 20; ihaoy2 += 20; }
+					else { ihaox2 -= 20; }
+					fireworks.push(new Firework(cw / 2, ch / 2 - 100, ihaox2, ihaoy2));
+					timerTick = 0;
+				}
+			} else { timerTick += 40; }
+		}
+		window.onload = loop;
+	</script>
+</body>
+
+</html>
